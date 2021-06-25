@@ -1,0 +1,41 @@
+#map svg {
+   background-color: #e6f0f0;
+   max-width: auto;
+   height: auto;
+   display : block;
+}
+
+path:hover {
+    fill: rgba(8, 81, 156, 0.2);
+    cursor:default;
+}
+
+circle:hover{
+ cursor: pointer;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    color: black;
+    max-width: auto;
+    height: auto;
+    padding: 2px;
+    font: 12px "Fira Sans", sans-serif;
+    background: white;
+    border-width: 2px;
+    border-radius: 8px;
+    pointer-events: none;
+    padding : 10px;
+}
+
+div.tooltip b{
+    font-weight: bold;
+    }
+
+.toto {
+    display: block;
+    max-width: 200px;
+    max-height: 150px;
+}
+
