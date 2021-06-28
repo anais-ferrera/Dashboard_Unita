@@ -31,14 +31,18 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
 		"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
 
+		
+
+		<script type="text/javascript" src="js/graphs.js"></script>
 
 		<title>Dashboard Unita</title>
 		<h1>Dashboard Unita</h1>
-		<p><div class="p2"> This interactive dashboard allows you to explore the different 
-			study program's name by theme offered by Unita universities. You can have 
-			access to the training courses, the number of ECTS, the language spoken, 
-			and the link to access the course site. Each visualization is explained, 
-			but you can click and see for yourself what is happening ...</div></p>
+		<p><div class="p2"> Sunbursts and tables allow you to see in detail and analyze training 
+            offerings and their associated courses. You can choose to filter the sunburst by theme 
+            or by university and then navigate by clicking on the circles. The tables all have a 
+            different use, the first allows you to see the courses of the selected training in the sunburst, 
+            the second allows you to compare the courses against the first table and the third to drag and 
+            drop the courses to save your course choices .</div></p>
         
 	</head>
 	
@@ -58,7 +62,7 @@
 			  </div>
 			  <div class="navbar-collapse">
 				<ul class="navbar-nav nav main-nav">
-				  <li><a href="formations.html">Formations</a></li>
+				  <li><a href="./">Formations</a></li>
 				  <li><a href="build_your_mobility.html">Build your mobility</a></li>
 				</ul>
 			  </div>
@@ -68,38 +72,115 @@
 		<div class="container-fluid">
 
 			<div class="row">
-	
 		
+			  <div class="col-sm-6">
+				
+						<div class="col-sm-12">
+							<div class="chart-wrapper">
+							<div class="chart-title">
+								Sunburst
+							</div>
+							<div class="chart-stage">
+								<select id="sunburst">
+									<option value="thematic"  selected="selected">By thematic</option>
+									<option value="university">By university</option>
+								</select>	
+							<div id="DivContent">
+								<div id="thematic" class="div_content"></div>
+								<div id="university" class="div_content"></div>
+								</div>
+							</div>
+							<div class="chart-notes">
+								Hierarchical visualization of study program's name
+							</div>
+							</div>
+						</div>
+				
+			  </div>
 			  <div class="col-sm-6">
 				<div class="chart-wrapper">
 				  <div class="chart-title">
-					Map
+					Courses cart
 				  </div>
 				  <div class="chart-stage">
-					<div id="map"></div>
-				  </div>
-				  <div class="chart-notes">
-					Interactive map showing universities' position
+					<div class="table-responsive">
+					 <table class="responsive" width="100%" id="table_target">
+						<thead>
+							<tr>
+								<th>University</th>
+								<th>Program</th>
+								<th>Semester</th>
+								<th>Subject</th>
+								<th>ECTS</th>
+								<th>Language</th>
+								<th>Virtual_Mobility</th>
+								<th>Link</th>
+								
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th colspan="7" style="text-align:right">Total of ECTS:</th>
+								<th></th>
+								
+							</tr>
+						</tfoot>
+						</table> 
 				  </div>
 				</div>
-			  </div>
-		
-		
-			  <div class="col-sm-6">
-				<div class="chart-wrapper">
-				  <div class="chart-title">
-					Histogram
-				  </div>
-				  <div class="chart-stage">
-					<div id="histogram"></div>
-				  </div>
-				  <div class="chart-notes">
-					Number of students per university
-				  </div>
 				</div>
 			  </div>
 			</div>
-			
+			<div class="row">
+			  <div class="col-sm-6">
+				<div class="chart-wrapper">
+				  <div class="chart-title">
+					Interactive dataTable
+				  </div>
+				  <div class="chart-stage">
+					<div id="table_courses"></div>						
+						<script>
+							d3.json("api/data_table_courses", function(data) {
+						var table_plot = makeTable()
+							.datum(data)
+							.sortBy('pval', true)
+							.filterCols(['_id','English_friendly','Description']);
+						
+						d3.select('#table_courses').call(table_plot);
+						
+						
+						});
+						</script>
+				  </div>
+				</div>
+			  </div>
+
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                      <div class="chart-title">
+                        Static dataTable
+                      </div>
+                      <div class="chart-stage">
+                        <table id="table_courses_all">
+                            <thead>
+                                <tr>
+                                    <th>University</th>
+                                    <th>Program</th>
+                                    <th>Semester</th>
+                                    <th>Subject</th>
+                                    <th>ECTS</th>
+                                    <th>Language</th>
+                                    <th>Virtual_Mobility</th>
+                                    <th>Link</th>
+
+                                </tr>
+                            </thead>
+
+                            </table> 
+                      </div>
+                    </div>
+                  </div>
+				</div>
 		
 			<hr>
 			<p class="small text-muted">Built by <a href="https://www.linkedin.com/in/ana%C3%AFs-ferrera-9145381a0/">Anaïs Fererra</a> and
@@ -114,6 +195,7 @@
 		  </script>
 	
 	<script type="text/javascript" src="js/test.js"></script> 
+	<script type="text/javascript" src="js/graphs.js"></script>
 		
 	</body>
 </html>

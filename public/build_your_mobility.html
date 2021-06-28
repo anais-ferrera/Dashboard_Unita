@@ -31,14 +31,15 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
 		"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
 
+		
+
+		<script type="text/javascript" src="js/graphs.js"></script>
 
 		<title>Dashboard Unita</title>
 		<h1>Dashboard Unita</h1>
-		<p><div class="p2"> This interactive dashboard allows you to explore the different 
-			study program's name by theme offered by Unita universities. You can have 
-			access to the training courses, the number of ECTS, the language spoken, 
-			and the link to access the course site. Each visualization is explained, 
-			but you can click and see for yourself what is happening ...</div></p>
+		<p><div class="p2"> Here you will be able to see the study path possibilities. The form allows 
+			you to note the compatibility of the training and to see the results with the interactive 
+			chord chart. You can add filters to refine your search.</div></p>
         
 	</head>
 	
@@ -59,7 +60,7 @@
 			  <div class="navbar-collapse">
 				<ul class="navbar-nav nav main-nav">
 				  <li><a href="formations.html">Formations</a></li>
-				  <li><a href="build_your_mobility.html">Build your mobility</a></li>
+				  <li><a href="./">Build your mobility</a></li>
 				</ul>
 			  </div>
 			</div>
@@ -68,38 +69,89 @@
 		<div class="container-fluid">
 
 			<div class="row">
-	
-		
+			<div class="col-sm-3"></div>
 			  <div class="col-sm-6">
 				<div class="chart-wrapper">
-				  <div class="chart-title">
-					Map
-				  </div>
-				  <div class="chart-stage">
-					<div id="map"></div>
-				  </div>
-				  <div class="chart-notes">
-					Interactive map showing universities' position
-				  </div>
+					<div class="chart-stage">		
+                     
+				<form action="/sign_up" method="post">
+						  
+				<h1> Compatibility form </h1>
+				
+					<!-- 1st element in the form : 1st list -->
+					<div class="program_rect">
+					<input name="prog1" list="program1" placeholder="Write or choose the 1st program from this list :" required/>
+					<datalist id="program1"></datalist></div>
+
+					<!-- 2nd element in the form : 2nd list -->
+					<div class="program_rect">						
+						<input name="prog2" list="program2" placeholder="Write or choose the 2nd program from this list :" required/>
+						<datalist id="program2"></datalist></div>
+
+					<!-- script for generate the study program's name list -->
+					<script>	
+						d3.json("/api/data_table_courses", (data) => {
+
+							const array = []
+							var data_program1;
+							var data_program2;
+
+							for (let i =0 ; i < data.length ; i++){
+								array.push(data[i].Program + '-' + data[i].University )
+							}
+
+							// 1: we create a dataset, it allows to filter and remove duplicates
+							const uniqueSet = new Set(array);
+							// 2: we convert to an array using the spread operator
+							const backToArray = [...uniqueSet];
+
+							//browse the array elements 
+							for (let i = 0 ; i < backToArray.length ; i++){
+								//add them as an option for the search bar with the drop-down list
+								data_program1 += '<option value="' + (backToArray[i]) + '" />';		
+								data_program2 += '<option value="' + (backToArray[i]) + '" />';						
+							}
+							
+							document.getElementById('program1').innerHTML = data_program1;
+							document.getElementById('program2').innerHTML = data_program2;	
+						})
+					</script> 
+
+					<!-- 3rd element in the form : the rank -->
+					<div class="txt-center">
+						
+						<div class="rating">
+							<input id="star5" name="compatibility" type="radio" value="5" class="radio-btn hide" />
+							<label for="star5">☆</label>
+							<input id="star4" name="compatibility" type="radio" value="4" class="radio-btn hide" />
+							<label for="star4">☆</label>
+							<input id="star3" name="compatibility" type="radio" value="3" class="radio-btn hide" />
+							<label for="star3">☆</label>
+							<input id="star2" name="compatibility" type="radio" value="2" class="radio-btn hide" />
+							<label for="star2">☆</label>
+							<input id="star1" name="compatibility" type="radio" value="1" class="radio-btn hide" />
+							<label for="star1">☆</label>
+							<div class="clear"></div>
+						</div>
+					
 				</div>
-			  </div>
-		
-		
-			  <div class="col-sm-6">
-				<div class="chart-wrapper">
-				  <div class="chart-title">
-					Histogram
-				  </div>
-				  <div class="chart-stage">
-					<div id="histogram"></div>
-				  </div>
-				  <div class="chart-notes">
-					Number of students per university
-				  </div>
+
+					<!-- 4th element in the form : submit button -->
+					<input type="submit" id="submitDetails"  
+					name="submitDetails" value="Submit" /><br>
+						  
+					</form>
 				</div>
-			  </div>
-			</div>
 			
+				<div class="chart-notes">
+					Choose two formations and give them a grade to evaluate their compatibility
+				</div>	  
+
+
+				</div>
+			</div>
+		</div>
+			  
 		
 			<hr>
 			<p class="small text-muted">Built by <a href="https://www.linkedin.com/in/ana%C3%AFs-ferrera-9145381a0/">Anaïs Fererra</a> and
