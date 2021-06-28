@@ -1,11 +1,23 @@
+h1{
+  font-size: 40px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 30px;
+  padding-top: 40px;
+}
 
-/*
- * Full-page application style
- */
+.p2{
+  font-size: 16px;
+  text-align: justify;
+  position: relative;
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-bottom: 30px;
+}
 
 body.application {
   background: #f2f2f2;
-  padding: 60px 20px 0;
+  padding: 10px 20px 0;
 }
 body.application > .container-fluid {
   padding-left: 0px;
@@ -23,18 +35,6 @@ body.application div[class^="col-"] div[class^="col-"] {
 body.application hr {
   border-color: #d7d7d7;
   margin: 10px 0;
-}
-
-
-
-.navbar-inverse {
-  background-color: #3d4a57;
-  border-color: #333;
-}
-.navbar-inverse .navbar-nav > li > a,
-.navbar a.navbar-brand {
-  color: #fbfbfb;
-  text-decoration: none;
 }
 
 .chart-wrapper {

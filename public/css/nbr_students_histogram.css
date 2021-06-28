@@ -1,0 +1,14 @@
+
+.bar:hover {
+    opacity: 0.8;
+  }
+
+#histogram {
+  margin-top: 15px;
+  margin-right: -30px;
+  margin-bottom: -10px;
+}
+
+/* div.tooltip {
+  background-color: white;
+} */

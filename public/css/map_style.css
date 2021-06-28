@@ -8,34 +8,57 @@
 path:hover {
     fill: rgba(8, 81, 156, 0.2);
     cursor:default;
+    fill-opacity: .7;
 }
 
 circle:hover{
  cursor: pointer;
 }
 
-div.tooltip {
-    position: absolute;
-    text-align: center;
-    color: black;
-    max-width: auto;
-    height: auto;
-    padding: 2px;
-    font: 12px "Fira Sans", sans-serif;
-    background: white;
-    border-width: 2px;
-    border-radius: 8px;
-    pointer-events: none;
-    padding : 10px;
+div.tooltip_map {
+    position: absolute;                 
+	max-width: 280px;                  
+	height: auto;     
+	padding: 10px;                              
+	background : white;   
+	border: solid 1px lightgrey;   
+	border-radius: 8px;           
+	pointer-events: none;  
 }
 
-div.tooltip b{
+div.tooltip_map b{
     font-weight: bold;
     }
 
-.toto {
+.img {
     display: block;
-    max-width: 200px;
-    max-height: 150px;
+    max-width: 230px;
+    max-height: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
 }
 
+.univ {
+	font: 22px sans-serif; 
+	line-height: 10px;
+    margin-top: 25px;
+}
+
+.country {
+	font: 13px sans-serif;
+	line-height: 15px;
+	margin-top: 1.5%;
+    font-style: italic;
+}
+
+.summary {
+	font: 10px sans-serif;
+	text-align: justify;
+    margin-bottom:auto;
+}
+              
+/* .nbr {
+    font-style: italic;
+    font-weight: bold;
+} */

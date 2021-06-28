@@ -1,7 +1,6 @@
 html {
     height: 100%;
 }
-
 svg {
   background-color: white;
 }
@@ -9,9 +8,10 @@ svg {
 #container h1 {
   text-align: center;
   font: 20px "Fira Sans", sans-serif;
+  /*font-weight: bold;*/
   margin: 0;
   padding-bottom: 10px;
-
+  
 }
 
   #container {
@@ -29,46 +29,116 @@ path:hover {
   cursor:pointer;
 }
 #table_courses{
-  font-family: sans-serif; 
- position: relative; 
-  overflow-x: scroll; 
-  width:100%;
-}
-.table_courses_all{
-  width:100%;
-  height:100%;
-  display: block;
-    
-}
-table#table_courses_all.dataTable{
   font-family: sans-serif;
-  display: block;
-  width: 200%;
+  /* overflow-x: scroll; */
 }
 #table_target{
   font-family: sans-serif;
-  display: block;
-  overflow-x: scroll; 
-  width:100%;
+  /* overflow-x: scroll;
+  display : block; */
 }
-table#table_courses_all.dataTable thead th,
-table#table_courses_all.dataTable thead td {
-  padding: 4px 17px;
-
-}
-table#table_courses_all.dataTable tbody th,
-table#table_courses_all.dataTable tbody td{
-  padding: 4px;
-}
-
-table#table_courses_all.dataTable tbody tr:nth-child(even)  {background: #FFF;}
-table#table_courses_all.dataTable tbody tr:nth-child(odd)   {background: #f5f5f5;}
-
-table#table_target.dataTable tbody tr:nth-child(even)  {background: #FFF;}
-table#table_target.dataTable tbody tr:nth-child(odd)   {background: #f5f5f5;}
 
 table#courses_table.dataTable tbody tr.over {
   background-color:  rgb(176, 209, 221);
 } 
 
+table#table_target.dataTable tbody tr.over > .sorting_1 {
+  background-color: rgb(176, 209, 221);
+}
 
+table#table_target.dataTable tbody tr.over {
+  background-color: rgb(176, 209, 221);
+}
+
+table#table_target.dataTable tbody tr.over > .sorting_1 {
+  background-color:  rgb(176, 209, 221);
+}
+
+/* style for the form (study path) */
+
+.main{
+  padding:20px;
+  font-family: 'Helvetica', serif;   
+}
+.main h1{
+  font-size: 40px;
+  text-align:center;
+  font-family: 'Helvetica', serif;
+}
+input{
+  font-family: 'Helvetica', serif;
+  width: 100%;
+  font-size: 20px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
+  border-bottom: 2px solid #767474;
+}
+input[type=submit] {
+  font-family: 'Helvetica', serif;
+  background-color: #767474;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  border-radius: 10px;
+}
+input[type=submit]:hover {
+  background-color: #6D6C6C;
+  cursor:pointer;
+}
+.program_rect{
+  width:100%;
+}
+
+.program1{
+  width:100%;
+}
+
+/* star rating */
+.txt-center {
+  text-align: center;
+}
+.hide {
+  display: none;
+}
+
+.clear {
+  float: none;
+  clear: both;
+}
+
+.rating {
+  width: 90px;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+  position: relative;
+}
+
+.rating > label {
+  float: right;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  width: 1.1em;
+  cursor: pointer;
+  color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+  color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+  content: "\2605";
+  position: absolute;
+  left: 0;
+  color: #FFD700;
+}
