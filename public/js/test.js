@@ -12,7 +12,6 @@ function makeMap(error, apiData) {
     var unitaSunburst = apiData;
 
 
-
 //Width and height
 var w = 800;
 var h = 600;
@@ -38,10 +37,10 @@ var svg1 = d3.select("#map")
 // Append Div for tooltip to SVG
 var div1 = d3.select("body")
 	    .append("div")
-		.attr("class", "tooltip")
+		.attr("class", "tooltip_map")
 		.style("opacity", 0);
 
-    
+        
 //Load in GeoJSON data
 d3.json("api/coord_map", function(json) {
    
@@ -56,11 +55,14 @@ d3.json("api/coord_map", function(json) {
 
        d3.json("api/data_map",function(data){
             
-    //  var colors = d3.scaleOrdinal().domain(data)
-    //                           .range(["#FCBDE3","#B9D3FA","#EEEB9E","#94D4AB","#494B44","#D4B79D"]);
     var colors = d3.scaleOrdinal().domain(data)
-                              .range(["#F8A3D7","#A2C5FA","#E9E587","#85D8A3","#FCC987","#BDA086"]);
-        
+    .range(["#F8A3D7","#A2C5FA",'#F07F78',"#FCC987","#82CBD8",'#BDA086']);
+        //marron BDA086
+        //orange FCC987
+        //cyan 82CBD8
+        //rouge F07F78
+        //bleu A2C5FA
+
         svg1.selectAll("circle")
                 .data(data)                
                 .enter()
@@ -89,88 +91,111 @@ d3.json("api/coord_map", function(json) {
              
             };
 
-                  
-
-                //PIE CHART
-				widthT=300
-                heightT=200
-                var svgT = d3.select("#pie")
-                            .append("svg")
-                             .attr("width",widthT)
-                             .attr("height",heightT)
-                            radius = Math.min(widthT, heightT) / 2,
-                            gT = svgT.append("g").attr("transform", "translate(" + widthT/2 + "," + heightT/2 + ")");
-                var divPie = d3.select("body")
-                            .append("div")
-                            .attr("class", "tooltip")
-                            .style("opacity", 0);
-                
-                var pie = d3.pie().value(function(d) { 
-                    return d.students; 
-                });
-              
-                // Generate the arcs
-    var arc = d3.arc()
-    .innerRadius(0)
-    .outerRadius(radius);
-
-//Generate groups
-var arcs = gT.selectAll("arc")
-    .data(pie(data))
-    .enter()
-    .append("g")
-    //.attr("class","arc")
-    .append("path")
-    .attr("fill", function(d,i) {return colors(i);})
-    .attr("stroke","none")
-    .attr("d", arc)
-    .attr("class", function(d,i) { return "pt" + i; })
-    .on("mouseover",over)
-    .on("mouseout",out)
+    //HISTOGRAM
     
+    width = 500;
+    height = 250;
+
+    const x = d3.scaleBand()
+                .range([0, width])
+                .padding(0.1);
+
+    const y = d3.scaleLinear()
+                .range([height, 0]);
+
+    const svg = d3.select("#histogram").append("svg")
+                  .attr("id", "svg")
+                  //responsive
+                  .attr('viewBox','-50 0 600 300' )
+                  .attr('preserveAspectRatio','xMinYMin');     
+
+    const divBar = d3.select("body").append("div")
+                  .attr("class", "tooltip_map")         
+                  .style("opacity", 0);   
+
+    //convert caract to number
+    data.forEach(d => d.students = +d.students);
+
+    x.domain(data.map(d => d.university));
+    y.domain([0, d3.max(data, d => d.students)]);
+    
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSize(0))
+        .selectAll("text")	
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)");
+    
+    svg.append("g")
+        .call(d3.axisLeft(y).ticks(6));
+
+    svg.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+            .attr("class", "bar")
+            .attr("fill", function(d,i) {return colors(i);})
+            .attr("x", d => x(d.university))
+            .attr("width", x.bandwidth())
+            .attr("y", d => y(d.students))
+            .attr("height", d => height - y(d.students))	
+            .attr("class", function(d,i) { return "pt" + i; })
+            // no bar at the beginning (for the animation)
+            .attr("height", function(d) { return height - y(0); }) 
+            .attr("y", function(d) { return y(0); })
+            .on("mouseover",over)
+            .on("mouseout",out);
+            
+    // Animation
+    svg.selectAll("rect")
+        .transition()
+        .duration(800)
+        .attr("y", function(d) { return y(d.students); })
+        .attr("height", function(d) { return height - y(d.students); })
+        .delay(function(d,i){console.log(i) ; return(i*100)})
+
     function over (d,i) { 
       
       console.log("circle.pt"+i)
+      console.log("rect.pt"+i)
       function select(i){
      d3.selectAll("circle.pt"+i)
      .attr("stroke","black")
      .attr("stroke-width","3px");
-     d3.selectAll("path.pt"+i)
+     d3.selectAll("rect.pt"+i)
      .attr("stroke","black")
      .attr("stroke-width","3px"); }     
         if(arraysEqual(d3.select(this)._groups[0],Array.from(d3.selectAll("circle.pt"+i)._groups[0]))){
          select(i);
                    div1.transition()
-             .style("display","block")
-                         .duration(500)
-                         .style("opacity", 1);
-         div1.html("Country : <b>"+d.country+ "</b><br/>" +" University : <b>"+d.university +"</b>"
-         + "<img class='toto' src='data:image/png;base64,"+ d.img +"'/>")
-                         .style("left", (d3.event.pageX -105) + "px")
-                         .style("top", (d3.event.pageY +10 ) + "px");
-           
-        
+                        .style("display","block")
+                        .duration(500)
+                        .style("opacity", 1);
+                
+         div1.html(
+            "<img class='img' src='data:image/png;base64,"+ d.img +"'/>"
+            + "<p class='univ'><b>" + d.university + "</b></p>" 
+            + "<p class='country'>" + d.country + "</p>"   
+            + "<p class='summary'>" + d.summary + "</p><br/>" )
+            .style("left", (d3.event.pageX -10) + "px")
+            .style("top", (d3.event.pageY -400) + "px");
          }
          
-         if(arraysEqual(d3.select(this)._groups[0],Array.from(d3.selectAll("path.pt"+i)._groups[0]))){
+         if(arraysEqual(d3.select(this)._groups[0],Array.from(d3.selectAll("rect.pt"+i)._groups[0]))){
            select(i);
-       
-           divPie.transition()
-             .style("display","block")
-                         .duration(500)
-                         .style("opacity", 1);
-           divPie.html("Nb students : <b>"+ d.data.students + "</b><br/>" +" University : <b>"+d.data.university +"</b>")
-                           .style("left", (d3.event.pageX +10) + "px")
-                           .style("top", (d3.event.pageY ) + "px");}
+
+            divBar.transition()     
+                   .duration(200)       
+                   .style("opacity", 1)
+                   .style("background-color", "white");
+            divBar.html("Nb students : <b>"+ d.students + "</b>")
+                  .style("left", (d3.event.pageX + 5) + "px")     
+                  .style("top", (d3.event.pageY - 40) + "px");            
+             }
            
            }
             
-
-
-           /*  function arraysEqual(a1,a2) {
-              //WARNING: arrays must not contain {objects} or behavior may be undefined 
-              return JSON.stringify(a1)==JSON.stringify(a2);
-          } */
           function arraysEqual(a,b) {
             /*
                 Array-aware equality checker:
@@ -191,41 +216,18 @@ var arcs = gT.selectAll("arc")
             }
         }
 
-
-         function out (d,i){
-      divPie.transition()
-						.duration(500)
-						.style("opacity", 0);
-        d3.selectAll("path.pt"+i)
-        .attr("stroke","none")
-        div1.transition()
-           .duration(500)
-           .style("opacity", 0);
-        d3.selectAll("circle.pt"+i)
-           .attr("stroke","none")
-    };
-    
-       
-
-             
-	var arcGenerator = d3.arc()
-  .innerRadius(0)
-  .outerRadius(radius)
-
-    gT
-    .selectAll('arc')
-    .data(pie(data))
-    .enter()
-    .append('text')
-    .attr("classe","txt")
-    .text(function(d){ return d.data.university})
-    .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
-    .style("text-anchor", "middle")
-    .style("font-size", 10)
-    .style("font-family","sans-serif")
-  
-
-
+        function out (d,i){
+            divBar.transition()
+                  .duration(500)
+                  .style("opacity", 0);
+            d3.selectAll("rect.pt"+i)
+              .attr("stroke","none")
+            div1.transition()
+                .duration(500)
+                .style("opacity", 0);
+            d3.selectAll("circle.pt"+i)
+              .attr("stroke","none")
+        };      
 
       });
       })}

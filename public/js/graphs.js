@@ -98,7 +98,6 @@ const svg = d3.select('#thematic').append('svg')
 .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
 .on('click', () => focusOn()) // Reset zoom on canvas click  
 
-
 d3.json("/api/data_thematic_sunburst", (error, root) => {
 if (error) throw error;
 
@@ -215,7 +214,9 @@ const xUniv = d3.scaleLinear()
 const yUniv = d3.scaleSqrt()
 .range([maxRadiusUniv*0.1, maxRadiusUniv]); //modif 0.1 = taille du centre pour faire retour
 
-const colorUniv = d3.scaleOrdinal().range(["white","pink","#94D4AB","#B9D3FA ",'#EEEB9E','#D4B79D ',"#FCBDE3","#6FCF8C ","#B7AFE7", "#F1E268" ]);
+
+const colorUniv = d3.scaleOrdinal()
+.range(["white","#F8A3D7","#BDA086",'#FCC987',"#82CBD8","#F07F78",'#A2C5FA', "#F1E268","#6FCF8C","#B7AFE7" ]);
 const partitionUniv = d3.partition();
 
 const arcUniv = d3.arc()
