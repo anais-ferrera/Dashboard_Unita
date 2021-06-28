@@ -88,6 +88,23 @@ module.exports = function(app) {
       res.send(json); // return all nerds in JSON format
     });
    }); 
+   app.post('/sign_up', function(req,res){
+    var program1 = req.body.prog1;
+    var program2 =req.body.prog2;
+    var compatibility = req.body.compatibility;
+  
+    var data = {
+        "program1": program1,
+        "program2":program2,
+        "compatibility":compatibility,
+    }
+    collection_compatibility.insertOne(data,function(err, collection_compatibility){
+            if (err) throw err;
+            console.log("Record inserted Successfully");
+                  
+        });     
+        return res.redirect('build_your_mobility.html');
+    });
 /*  
   app.get('/api/export', function(req, res)
    {
