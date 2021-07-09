@@ -1,4 +1,4 @@
 module.exports = {
-	urlSubjectViews: 'mongodb://localhost:270219/database_unita',
+	DBCONNECTION: "mongodb+srv://user2:8BifUUDNm6Z9fCb0@unita.jr9ij.mongodb.net/database_unita?retryWrites=true&w=majority"
 
 }
