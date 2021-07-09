@@ -3,38 +3,23 @@
 	<head>
 		<meta charset="utf-8">
         <link rel="stylesheet" href="css/dashboard.css" />
-        <link rel="stylesheet" href="css/map_style.css" />
-        <link rel="stylesheet" href="css/sunburst.css" />
-		<link rel="stylesheet" href="css/treeMap.css" />
+        
+		<!-- <link rel="stylesheet" href="css/treeMap.css" /> -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/keen-dashboards.css">
-		<link rel="stylesheet" href="css/nbr_students_histogram.css">
-
-		<script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
-		<script src="//d3js.org/topojson.v1.min.js"></script>
+		<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script> 
+		<script src="https://d3js.org/topojson.v1.min.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>  	
-		<script type="text/javascript"  src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-		 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/r-2.2.9/datatables.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/r-2.2.9/datatables.min.css"></link> 
-	    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
-
-		 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-		 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-		 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-		 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-		  <link type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet"></link>	
-		<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
-		<link type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" rel="stylesheet"></link>
-		<link type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet"></link>	
-		
+			
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
 		"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
 
-		
-
-		<script type="text/javascript" src="js/graphs.js"></script>
-
+		<script type="text/javascript" src="js/formations.js"></script>
+		<!--TEST FOR THE RADAR CHART-->
+		<script src="js/radarChart.js"></script>
+		<link rel="stylesheet" href="css/radar_chart.css">
+		<!--TEST FOR THE RADAR CHART-->
 		<title>Dashboard Unita</title>
 		<h1>Dashboard Unita</h1>
 		<p><div class="p2"> Here you will be able to see the study path possibilities. The form allows 
@@ -69,7 +54,6 @@
 		<div class="container-fluid">
 
 			<div class="row">
-			<div class="col-sm-3"></div>
 			  <div class="col-sm-6">
 				<div class="chart-wrapper">
 					<div class="chart-stage">		
@@ -80,12 +64,12 @@
 				
 					<!-- 1st element in the form : 1st list -->
 					<div class="program_rect">
-					<input name="prog1" list="program1" placeholder="Write or choose the 1st program from this list :" required/>
+					<input id="prog1" name="prog1" list="program1" placeholder="Write or choose the 1st program from this list :" required/>
 					<datalist id="program1"></datalist></div>
 
 					<!-- 2nd element in the form : 2nd list -->
 					<div class="program_rect">						
-						<input name="prog2" list="program2" placeholder="Write or choose the 2nd program from this list :" required/>
+						<input id="prog2" name="prog2" list="program2" placeholder="Write or choose the 2nd program from this list :" required/>
 						<datalist id="program2"></datalist></div>
 
 					<!-- script for generate the study program's name list -->
@@ -119,24 +103,61 @@
 
 					<!-- 3rd element in the form : the rank -->
 					<div class="txt-center">
+					<script>	
+					$(function(){
+							// Get the 1st program selected in the list
+    						$('input[name=prog1]').change(function(){var p1 = $('input[name=prog1]').val();
+							// Get the 2nd program selected in the list
+							$('input[name=prog2]').change(function(){var p2 = $('input[name=prog2]').val();
+							// Open the data of data_compatibility
+							d3.json("/api/data_compatibility",(data)=>{
+							
+							for (let i =0 ; i < data.length ; i++){
+								// If prog1 and 2 are in the database we pre-fill the form
+								if(p1===data[i].program1 & p2===data[i].program2){
+									$('#star'+data[i].compatibility).prop("checked",true);
+									$('#comment').val(data[i].comment);
+								}
+								if(p1===data[i].program2 & p2===data[i].program1){
+									$('#prog1').val(p2);
+									$('#prog2').val(p1);
+									$('#star'+data[i].compatibility).prop("checked",true);
+									$('#comment').val(data[i].comment);
+
+									document.getElementById('program1').innerHTML = p2;
+									document.getElementById('program2').innerHTML = p1;	
+								}
+								} 
+							if(p1===p2){
+								alert('Same program');
+								location.reload(true);
+								}})
+					});});
 						
+						});
+					
+				 
+					</script>
+					<p style="margin-top: 5px; margin-left: 5px;">You can mark the compatibility or change it : </p>  
 						<div class="rating">
-							<input id="star5" name="compatibility" type="radio" value="5" class="radio-btn hide" />
+							
+							<input id="star5" name="compatibility" type="radio" value="5"  class="radio-btn hide" />
 							<label for="star5">☆</label>
-							<input id="star4" name="compatibility" type="radio" value="4" class="radio-btn hide" />
+							<input id="star4" name="compatibility" type="radio" value="4" class="radio-btn hide"/>
 							<label for="star4">☆</label>
 							<input id="star3" name="compatibility" type="radio" value="3" class="radio-btn hide" />
 							<label for="star3">☆</label>
 							<input id="star2" name="compatibility" type="radio" value="2" class="radio-btn hide" />
 							<label for="star2">☆</label>
-							<input id="star1" name="compatibility" type="radio" value="1" class="radio-btn hide" />
+							<input id="star1" name="compatibility" type="radio" value="1" class="radio-btn hide"  />
 							<label for="star1">☆</label>
 							<div class="clear"></div>
 						</div>
 					
 				</div>
-
-					<!-- 4th element in the form : submit button -->
+					<!-- 4th element in the form : comment -->
+					<input type="text" required id="comment" name="comment" placeholder="You can leave a comment about the compatibility"/><br>
+					<!-- 5th element in the form : submit button -->
 					<input type="submit" id="submitDetails"  
 					name="submitDetails" value="Submit" /><br>
 						  
@@ -150,12 +171,40 @@
 
 				</div>
 			</div>
-		</div>
-			  
-		
+			<div class="col-sm-6">
+				<div class="chart-wrapper">
+				<div class="chart-title">
+					Radar chart
+				</div>
+				<div class="chart-stage">
+					<select id="radar">
+						<option value="radarChart_ch"  selected="selected">Cultural heritage</option>
+						<option value="radarChart_ce">Circular economy</option>
+						<option value="radarChart_re">Renewable energy</option>
+					</select>	
+				<div id="DivContent">
+						<div  id="radarChart_ch" class="div_content" ></div>
+						<div  id="radarChart_re"  class="div_content" ></div>
+						<div  id="radarChart_ce"  class="div_content" ></div>
+						<script src="js/radar.js"></script>
+					</div>
+					
+				</div>
+				<div class="chart-notes">
+					Chart showing formation's compatibility
+				</div>
+				</div>
+			</div>
+
+	</div>
+	  
 			<hr>
-			<p class="small text-muted">Built by <a href="https://www.linkedin.com/in/ana%C3%AFs-ferrera-9145381a0/">Anaïs Fererra</a> and
-			<a href="https://www.linkedin.com/in/camille-kr%C3%BCsi-267969193/">Camille Krüsi</a></p>
+			<div style="text-align: center">
+                <img src="unitalogo.jpg" width="100" />
+             </div>
+            <div style="text-align:center">
+                <a href="http://univ-unita.eu/" class="small text-muted">Unita</a>
+             </div>
 		
 		  </div>
 		
@@ -165,7 +214,6 @@
 			Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
 		  </script>
 	
-	<script type="text/javascript" src="js/test.js"></script> 
 		
 	</body>
 </html>

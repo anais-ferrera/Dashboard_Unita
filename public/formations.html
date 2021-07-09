@@ -2,16 +2,15 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-        <link rel="stylesheet" href="css/dashboard.css" />
-        <link rel="stylesheet" href="css/map_style.css" />
+       
+		<link rel="stylesheet" href="css/table.css" />
         <link rel="stylesheet" href="css/sunburst.css" />
-		<link rel="stylesheet" href="css/treeMap.css" />
+		<!-- <link rel="stylesheet" href="css/treeMap.css" /> -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/keen-dashboards.css">
-		<link rel="stylesheet" href="css/nbr_students_histogram.css">
 
 		<script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
-		<script src="//d3js.org/topojson.v1.min.js"></script>
+		
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>  	
 		<script type="text/javascript"  src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 		 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/r-2.2.9/datatables.min.js"></script>
@@ -33,7 +32,7 @@
 
 		
 
-		<script type="text/javascript" src="js/graphs.js"></script>
+		<script type="text/javascript" src="js/formations.js"></script>
 
 		<title>Dashboard Unita</title>
 		<h1>Dashboard Unita</h1>
@@ -72,7 +71,8 @@
 		<div class="container-fluid">
 
 			<div class="row">
-		
+
+			<div class="col-sm-3"></div>
 			  <div class="col-sm-6">
 				
 						<div class="col-sm-12">
@@ -97,14 +97,17 @@
 						</div>
 				
 			  </div>
-			  <div class="col-sm-6">
+			  <div class="col-sm-3"></div>
+			</div>
+			<div class="row"></div>
+				<div class="col-sm-12">
+			  
 				<div class="chart-wrapper">
 				  <div class="chart-title">
 					Courses cart
 				  </div>
-				  <div class="chart-stage">
-					<div class="table-responsive">
-					 <table class="responsive" width="100%" id="table_target">
+				  <div class="chart-stage"style="overflow-x: scroll;">
+					 <table  width="100%" id="table_target">
 						<thead>
 							<tr>
 								<th>University</th>
@@ -120,13 +123,12 @@
 						</thead>
 						<tfoot>
 							<tr>
-								<th colspan="7" style="text-align:right">Total of ECTS:</th>
+								<th colspan="7" style="text-align:left">Total of ECTS:</th>
 								<th></th>
 								
 							</tr>
 						</tfoot>
-						</table> 
-				  </div>
+						</table>
 				</div>
 				</div>
 			  </div>
@@ -137,7 +139,7 @@
 				  <div class="chart-title">
 					Interactive dataTable
 				  </div>
-				  <div class="chart-stage">
+				  <div class="chart-stage" style="overflow-x: scroll;">
 					<div id="table_courses"></div>						
 						<script>
 							d3.json("api/data_table_courses", function(data) {
@@ -160,7 +162,7 @@
                       <div class="chart-title">
                         Static dataTable
                       </div>
-                      <div class="chart-stage">
+                      <div class="chart-stage" style=" overflow-x: scroll;">
                         <table id="table_courses_all">
                             <thead>
                                 <tr>
@@ -183,8 +185,12 @@
 				</div>
 		
 			<hr>
-			<p class="small text-muted">Built by <a href="https://www.linkedin.com/in/ana%C3%AFs-ferrera-9145381a0/">Anaïs Fererra</a> and
-			<a href="https://www.linkedin.com/in/camille-kr%C3%BCsi-267969193/">Camille Krüsi</a></p>
+			<div style="text-align: center">
+                <img src="unitalogo.jpg" width="100" />
+             </div>
+            <div style="text-align:center">
+                <a href="http://univ-unita.eu/" class="small text-muted">Unita</a>
+             </div>
 		
 		  </div>
 		
@@ -194,8 +200,8 @@
 			Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
 		  </script>
 	
-	<script type="text/javascript" src="js/test.js"></script> 
-	<script type="text/javascript" src="js/graphs.js"></script>
+
+	<script type="text/javascript" src="js/formations.js"></script>
 		
 	</body>
 </html>
