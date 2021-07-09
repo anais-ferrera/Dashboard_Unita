@@ -92,19 +92,33 @@ module.exports = function(app) {
     var program1 = req.body.prog1;
     var program2 =req.body.prog2;
     var compatibility = req.body.compatibility;
+    var comment =req.body.comment;
   
-    var data = {
-        "program1": program1,
-        "program2":program2,
-        "compatibility":compatibility,
-    }
-    collection_compatibility.insertOne(data,function(err, collection_compatibility){
-            if (err) throw err;
-            console.log("Record inserted Successfully");
-                  
-        });     
-        return res.redirect('build_your_mobility.html');
+
+    collection_compatibility.updateOne(
+          {"program1": program1, "program2": program2},
+          {
+            $set: {
+              "compatibility":compatibility,
+              "comment":comment
+            },
+          },
+          {upsert:true}
+        );
+
+      return res.redirect('build_your_mobility.html');
+  });
+  app.get('/api/data_compatibility', function(req, res) {
+    // use mongoose to get all nerds in the database
+    collection_compatibility.find().toArray( function(err, subjectDetails) {
+     // if there is an error retrieving, send the error.
+         // nothing after res.send(err) will execute
+     if (err)
+     res.send(err);
+     let json = CircularJSON.stringify(subjectDetails);
+      res.send(json); // return all nerds in JSON format
     });
+   });  
 /*  
   app.get('/api/export', function(req, res)
    {
