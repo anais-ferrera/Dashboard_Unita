@@ -80,11 +80,11 @@ mongo --port <primary>
 use database_unita  
 
 Then Ctrl+c and type :  
-mongoimport --port  [primary] -d unita -c coord_map --jsonArray [your_path]/coord_map.json  
-mongoimport --port [primary] -d unita --jsonArray -c data_map [your_path]/data_map.json  
-mongoimport --port  [primary] -d unita -c data_thematic_sunburst [your_path]/data_thematic_sunburst.json  
-mongoimport --port  [primary] -d unita -c data_univ_sunburst [your_path]/data_sun_univ.json  
-mongoimport --port  [primary] -d unita -c data_table_courses  --jsonArray [your_path]/data_table_courses.json  
+mongoimport --port  [primary] -d database_unita -c coord_map --jsonArray [your_path]/coord_map.json  
+mongoimport --port [primary] -d database_unita --jsonArray -c data_map [your_path]/data_map.json  
+mongoimport --port  [primary] -d database_unita -c data_thematic_sunburst [your_path]/data_thematic_sunburst.json  
+mongoimport --port  [primary] -d database_unita -c data_univ_sunburst [your_path]/data_sun_univ.json  
+mongoimport --port  [primary] -d database_unita -c data_table_courses  --jsonArray [your_path]/data_table_courses.json  
 
 In a command prompt :   
 
