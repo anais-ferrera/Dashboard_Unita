@@ -87,6 +87,7 @@ mongoimport --port [primary] -d database_unita --jsonArray -c data_map [your_pat
 mongoimport --port  [primary] -d database_unita -c data_thematic_sunburst [your_path]/data_thematic_sunburst.json  
 mongoimport --port  [primary] -d database_unita -c data_univ_sunburst [your_path]/data_sun_univ.json  
 mongoimport --port  [primary] -d database_unita -c data_table_courses  --jsonArray [your_path]/data_table_courses.json  
+Create an empty collection data_compatibility
 
 In a command prompt :   
 
