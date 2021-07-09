@@ -28,31 +28,7 @@ path:hover {
   fill: rgba(8, 81, 156, 0.2);
   cursor:pointer;
 }
-#table_courses{
-  font-family: sans-serif;
-  /* overflow-x: scroll; */
-}
-#table_target{
-  font-family: sans-serif;
-  /* overflow-x: scroll;
-  display : block; */
-}
 
-table#courses_table.dataTable tbody tr.over {
-  background-color:  rgb(176, 209, 221);
-} 
-
-table#table_target.dataTable tbody tr.over > .sorting_1 {
-  background-color: rgb(176, 209, 221);
-}
-
-table#table_target.dataTable tbody tr.over {
-  background-color: rgb(176, 209, 221);
-}
-
-table#table_target.dataTable tbody tr.over > .sorting_1 {
-  background-color:  rgb(176, 209, 221);
-}
 
 /* style for the form (study path) */
 
@@ -74,6 +50,7 @@ input{
   border: none;
   border-bottom: 2px solid #767474;
 }
+
 input[type=submit] {
   font-family: 'Helvetica', serif;
   background-color: #767474;
@@ -94,7 +71,11 @@ input[type=submit]:hover {
 .program1{
   width:100%;
 }
-
+p{
+  text-align: left; 
+  color: grey; 
+  font-family: sans-serif; 
+}
 /* star rating */
 .txt-center {
   text-align: center;
@@ -141,4 +122,8 @@ input[type=submit]:hover {
   position: absolute;
   left: 0;
   color: #FFD700;
+}
+.footer_logo_unita{
+  width: 100px;
+  text-align: right;
 }
