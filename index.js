@@ -12,7 +12,7 @@ var port = process.env.PORT || 8080; // set our port
 var db = require('./config/db');
 
 // connect to our mongoDB database (commented out after you enter in your own credentials)
-MongoClient.connect(process.env.MONGODB_URI ||'mongodb://localhost:27018,localhost:27019,localhost:27020/?replicaSet=rs0' ,  { useNewUrlParser: true, useUnifiedTopology: true },(err, client) => {
+MongoClient.connect(process.env.MONGODB_URI ||'mongodb://localhost:27017/' ,  { useNewUrlParser: true, useUnifiedTopology: true },(err, client) => {
   // ... start the server
   if (err) return;
   db = client.db('database_unita')
