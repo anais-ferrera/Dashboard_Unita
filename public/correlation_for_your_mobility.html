@@ -60,7 +60,8 @@
                         <script>
                             var GlobalData;
                             var GlobalSubmit;
-                            // get data from restfull API
+                            var submitvalue;
+                            // get data from restfull API (course)
                             $.getJSON( "/api/data_table_courses", function( data ) {
                                 let items = [];
                                 GlobalData = data;
@@ -74,10 +75,11 @@
                                 // 3: add this array to the html forms
                                 $( "#program1" ).html(backToArray);
                             });
+                            
                             // event --> click 
                             $("#submitCorrelation").click(function() {
                                 for(data of GlobalData){
-                                    const submitvalue = $('#prog1').val();
+                                    submitvalue = $('#prog1').val();
                                     if(submitvalue==`${data.Program}-${data.University}`){
                                         GlobalSubmit = data;
                                         $( "#ECTS" ).html('ECTS : <b>'+ data.ECTS +'</b>');
@@ -90,6 +92,54 @@
                                         break;
                                     }
                                 }
+                                // get data from restfull API (compatibility)
+                                $.getJSON( "/api/data_compatibility", function( data ) {
+                                    let items = [];
+                                    $.each( data, function( key, val ) {
+                                        if ( submitvalue == val.program2 ||   submitvalue == val.program1) {
+                                            let compatibility = ''
+                                            let title = '';
+                                            let color = '';
+                                            if (val.compatibility){
+                                                console.log(val.compatibility);
+                                                compatibility += '&#11088;';
+                                                for (let step = 1; step < val.compatibility; step++) {
+                                                    compatibility += '&#11088;';
+                                                }
+                                                if (val.compatibility<3){
+                                                    color = 'bg-warning';
+                                                }else{
+                                                    color = 'bg-success';
+                                                }
+                                            }else{
+                                                compatibility = '0';
+                                                color = 'bg-danger';
+                                            }
+                                            if (submitvalue == val.program2) {
+                                                title = val.program1;
+                                            }else{
+                                                title = val.program2;
+                                            }
+                                            items.push( `
+                                            <td>
+                                                <div class="${color} chart-wrapper" style='width:500px;height:200px'>
+                                                    <div class="chart-stage">
+                                                        <h3>${title}</h3>
+                                                        <div id="Correlation"> Correlation : <b>${compatibility}</b></div>
+                                                        <div id="Program1">Program1 : <b>${val.program1}</b></div>
+                                                        <div id="Program2">Program2 : <b>${val.program2}</b></div>
+                                                        <div id="Comment">Comment: <b>${val.comment}</b></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            ` );
+                                        }
+                                    });
+                                    $("#compatibility").html(items);
+                                });
                             });
                         </script>
                     </div>
@@ -111,18 +161,12 @@
                 </div>
             </div>
         </div>
-        <div class="bg-success chart-wrapper">
-			<div class="chart-stage">
-                <!-- ID CONCAT NOM DU COURS + ATTRIBUT EX : MATHS-USMB-ECTS --> 
-                <h3>Course X</h3>
-                <div id="Correlation"> Correlation : 	&#11088; &#11088; &#11088; &#11088;</div>
-                <div id="ECTS">ECTS : </div>
-                <div id="Program">Program : </div>
-                <div id="Semester">Semester : </div>
-                <div id="Subject">Subject : </div>
-                <div id="University">University : </div>
-                <div id="Virtual_Mobility">Virtual_Mobility : </div>
-            </div>
-        </div>
+        <table>
+            <tbody>
+                <tr id="compatibility" style='overflow-x: auto;'>
+                   
+                </tr>
+            </tbody>
+        </table>
 	</body>
 </html>
