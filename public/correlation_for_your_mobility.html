@@ -95,10 +95,16 @@
                                 // get data from restfull API (compatibility)
                                 $.getJSON( "/api/data_compatibility", function( data ) {
                                     let items = [];
+                                    // sort by compatibility the most relevant
+                                    data = data.sort((a, b) => (a.compatibility > b.compatibility ? -1 : +1));
+                                    // browse the table
                                     $.each( data, function( key, val ) {
                                         if ( submitvalue == val.program2 ||   submitvalue == val.program1) {
+                                            // using for the number of star
                                             let compatibility = ''
+                                            // title of the new section
                                             let title = '';
+                                            // change color according to compatibility
                                             let color = '';
                                             if (val.compatibility){
                                                 console.log(val.compatibility);
@@ -120,6 +126,7 @@
                                             }else{
                                                 title = val.program2;
                                             }
+                                            // add html section
                                             items.push( `
                                             <td>
                                                 <div class="${color} chart-wrapper" style='width:500px;height:200px'>
@@ -161,12 +168,13 @@
                 </div>
             </div>
         </div>
-        <table>
+        
+        <table style='width: 100%;overflow-x: auto;display: block;'>
             <tbody>
-                <tr id="compatibility" style='overflow-x: auto;'>
-                   
+                <tr id="compatibility">
                 </tr>
             </tbody>
         </table>
+       
 	</body>
 </html>
