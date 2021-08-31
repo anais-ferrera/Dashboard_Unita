@@ -54,13 +54,15 @@ $("#submitCorrelation").click(function() {
                 // add html section
                 items.push( `
                 <tr><td>
-                    <div class="${color} chart-wrapper" style='width:500px;height:200px'>
+                    <div class="${color} chart-wrapper" style='height:235px'>
                         <div class="chart-stage">
                             <h3>${title}</h3>
                             <div id="Correlation"> Correlation : <b>${compatibility}</b></div>
                             <div id="Program1">Program1 : <b>${val.program1}</b></div>
                             <div id="Program2">Program2 : <b>${val.program2}</b></div>
                             <div id="Comment">Comment: <b>${val.comment}</b></div>
+                            <br>
+                            <button id="${val.program1}" onclick="addProgram()" class="btn btn-warning">Add this program</button>
                         </div>
                     </div>
                 </tr></td>
@@ -70,3 +72,16 @@ $("#submitCorrelation").click(function() {
         $("#compatibility").html(items);
     });
 });
+
+function addProgram() {
+    console.log('test');
+}
+
+function reset(){
+    const reset = `
+        <b>Semester 1</b>
+           <br></br>
+        <div> Program : <b>null</b></div>
+    `;
+    $("#mobility").html(reset);
+}
