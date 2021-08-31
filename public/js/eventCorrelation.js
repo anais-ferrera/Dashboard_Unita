@@ -37,6 +37,21 @@ function submitCorrelation(){
         // sort by compatibility the most relevant
         data = data.sort((a, b) => (a.compatibility > b.compatibility ? -1 : +1));
         // browse the table
+        items.push( `
+            <tr><td>
+                <div class="bg-success chart-wrapper">
+                    <div class="chart-stage">
+                        <h3>${submitvalue}</h3>
+                        <div id="Correlation"> Correlation : <b>&#11088;&#11088;&#11088;&#11088;&#11088;</b></div>
+                        <div id="Program1">Program1 : <b>${submitvalue}</b></div>
+                        <div id="Program2">Program2 : <b>${submitvalue}</b></div>
+                        <div>Comment: <b>null</b></div>
+                        <br>
+                        <button name="${submitvalue}" onclick="addProgram('${submitvalue}','bg-success')" class="btn btn-warning">Add this program</button>
+                    </div>
+                </div>
+            </td></tr>
+            ` );
         $.each( data, function( key, val ) {
             if ( submitvalue == val.program2 ||   submitvalue == val.program1) {
                 // using for the number of star
@@ -68,7 +83,7 @@ function submitCorrelation(){
                 // add html section
                 items.push( `
                 <tr><td>
-                    <div class="${color} chart-wrapper" style='height:235px'>
+                    <div class="${color} chart-wrapper">
                         <div class="chart-stage">
                             <h3>${title}</h3>
                             <div id="Correlation"> Correlation : <b>${compatibility}</b></div>
@@ -76,10 +91,10 @@ function submitCorrelation(){
                             <div id="Program2">Program2 : <b>${val.program2}</b></div>
                             <div id="Comment">Comment: <b>${val.comment}</b></div>
                             <br>
-                            <button name="${title}" onclick="addProgram('${title}')" class="btn btn-warning">Add this program</button>
+                            <button name="${title}" onclick="addProgram('${title}','${color}')" class="btn btn-warning">Add this program</button>
                         </div>
                     </div>
-                </tr></td>
+                </td></tr>
                 ` );
             }
         });
@@ -87,18 +102,23 @@ function submitCorrelation(){
     });
 }
 
-function addProgram(id) {
+function addProgram(id,color) {
     count = count + 1;
-    const semesterFollowing = `
-        <div class="box arrow-right bg-success">
-           <b>Semester ${count}</b>
-           <br></br>
-           <div> Program : <b>${id}</b></div>
-        </div>
-    `;
-    $(`#mobility1`).append(semesterFollowing);
-    $('#prog1').val(id);
-    submitCorrelation();
+    if (count < 7) {
+        const semesterFollowing = `
+            <div class="box arrow-right ${color}">
+                <b>Semester ${count}</b>
+                <br></br>
+                <div> Program : <b>${id}</b></div>
+            </div>
+        `;
+        $(`#mobility1`).append(semesterFollowing);
+        $('#prog1').val(id);
+        submitCorrelation();
+    }else{
+        window.alert("Too many semester");
+    }
+    
 }
 
 function reset(){
