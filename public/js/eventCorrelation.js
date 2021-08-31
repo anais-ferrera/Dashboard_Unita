@@ -1,4 +1,4 @@
-
+var count = 1;
 // get data from restfull API (course)
 $.getJSON( "/api/data_table_courses", function( data ) {
     let items = [];
@@ -15,6 +15,20 @@ $.getJSON( "/api/data_table_courses", function( data ) {
 
 // event --> click 
 $("#submitCorrelation").click(function() {
+    submitCorrelation();
+    // add html the to bottom part
+    const mobility = `
+    <div class="box arrow-right bg-success">
+        <b>Semester 1</b>
+            <br></br>
+        <div> Program : <b>${$('#prog1').val()}</b></div>
+    </div>
+    `;
+    $("#mobility1").html(mobility);
+    count = 1;
+});
+
+function submitCorrelation(){
     // get value selected
     let submitvalue = $('#prog1').val();
     // get data from restfull API (compatibility)
@@ -62,7 +76,7 @@ $("#submitCorrelation").click(function() {
                             <div id="Program2">Program2 : <b>${val.program2}</b></div>
                             <div id="Comment">Comment: <b>${val.comment}</b></div>
                             <br>
-                            <button id="${val.program1}" onclick="addProgram()" class="btn btn-warning">Add this program</button>
+                            <button name="${title}" onclick="addProgram('${title}')" class="btn btn-warning">Add this program</button>
                         </div>
                     </div>
                 </tr></td>
@@ -71,17 +85,28 @@ $("#submitCorrelation").click(function() {
         });
         $("#compatibility").html(items);
     });
-});
+}
 
-function addProgram() {
-    console.log('test');
+function addProgram(id) {
+    count = count + 1;
+    const semesterFollowing = `
+        <div class="box arrow-right bg-success">
+           <b>Semester ${count}</b>
+           <br></br>
+           <div> Program : <b>${id}</b></div>
+        </div>
+    `;
+    $(`#mobility1`).append(semesterFollowing);
 }
 
 function reset(){
     const reset = `
+    <div class="box arrow-right bg-success">
         <b>Semester 1</b>
            <br></br>
         <div> Program : <b>null</b></div>
+    </div>
     `;
-    $("#mobility").html(reset);
+    $("#mobility1").html(reset);
+    count = 1;
 }
