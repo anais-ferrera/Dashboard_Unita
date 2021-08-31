@@ -97,6 +97,8 @@ function addProgram(id) {
         </div>
     `;
     $(`#mobility1`).append(semesterFollowing);
+    $('#prog1').val(id);
+    submitCorrelation();
 }
 
 function reset(){
