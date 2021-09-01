@@ -28,7 +28,7 @@ function draw() {
             }
             // give value to edge
             if (val.compatibility != null) {
-                edge1 = { from: val.program1, to: val.program2, value: val.compatibility * 2, title: `${val.program1}---->${val.program2}` };
+                edge1 = { from: val.program1, to: val.program2, value: val.compatibility * 2, title: `${val.program1}---->${val.program2}`, color: "red" };
                 // add edge
                 edges.push(edge1)
             }
@@ -55,29 +55,6 @@ function draw() {
         console.log(nodes);
         console.log(edges);
     });
-    // create people.
-    // value corresponds with the age of the person
-    // nodes = [
-    //     { id: 'a a', value: 2, label: "Algie" },
-    //     { id: 2, value: 31, label: "Alston" },
-    //     { id: 3, value: 12, label: "Barney" },
-    //     { id: 4, value: 16, label: "Coley" },
-    //     { id: 5, value: 17, label: "Grant" },
-    //     { id: 6, value: 15, label: "Langdon" },
-    //     { id: 7, value: 6, label: "Lee" },
-    //     { id: 8, value: 5, label: "Merlin" },
-    //     { id: 9, value: 30, label: "Mick" },
-    //     { id: 10, value: 18, label: "Tod" },
-    // ];
-
-    // // create connections between people
-    // // value corresponds with the amount of contact between two people
-    // edges = [
-    //     { from: 'a a', to: 8, value: 30, title: "3 emails per week" },
-    // ];
-
-
-
 }
 
 
