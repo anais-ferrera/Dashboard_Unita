@@ -1,3 +1,4 @@
+
 var count = 1;
 // get data from restfull API (course)
 $.getJSON( "/api/data_table_courses", function( data ) {
@@ -131,4 +132,16 @@ function reset(){
     `;
     $("#mobility1").html(reset);
     count = 1;
+}
+
+function save(){
+    var doc = new jsPDF();
+    console.log($("#mobility1").html())
+    doc.text(20, 20, 'Hello !');
+    doc.text(20, 30, 'Here you will find your mobility :');
+    doc.fromHTML($("#mobility1").html(),20,40,)
+    // Save the PDF
+    doc.save('mobilitySemester.pdf');
+
+    console.log('Doc is saving...')
 }
