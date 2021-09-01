@@ -136,10 +136,10 @@ function reset(){
 
 function save(){
     var doc = new jsPDF();
-    console.log($("#mobility1").html())
+
     doc.text(20, 20, 'Hello !');
     doc.text(20, 30, 'Here you will find your mobility :');
-    doc.fromHTML($("#mobility1").html(),20,40,)
+    doc.fromHTML($("#mobility1").html(),20,40);
     // Save the PDF
     doc.save('mobilitySemester.pdf');
 
