@@ -1,102 +1,86 @@
-var s = new sigma('sigma');
+let nodes = [];
+let edges = [];
+let network = null;
 
-// Then, let's add some data to display:
-s.graph.addNode({
-  // Main attributes:
-  id: 'n0',
-  label: 'Hello',
-  // Display attributes:
- 
-  color: '#f00'
-}).addNode({
-  // Main attributes:
-  id: 'n1',
-  label: 'World !',
-  // Display attributes:
 
-  color: '#00f'
-}).addNode({
-  // Main attributes:
-  id: 'a1',
-  label: 'a1',
-  // Display attributes:
 
-  color: '#00f',
-  target:''
-}).addNode({
-  // Main attributes:
-  id: 'a2',
-  label: 'a2',
-  // Display attributes:
-  color: '#00f',
-}).addNode({
-  // Main attributes:
-  id: 'a3',
-  label: 'a3',
-  // Display attributes:
 
-  color: '#00f',
-}).addNode({
-  // Main attributes:
-  id: 'a4',
-  label: 'a4',
-  // Display attributes:
+function draw() {
+    // get data from restfull API (course)
+    $.getJSON("/api/data_compatibility", function(data) {
 
-  color: '#00f',
-}).addNode({
-  // Main attributes:
-  id: 'a5',
-  label: 'a5',
-  // Display attributes:
-  color: '#00f',
-}).addNode({
-  // Main attributes:
-  id: 'b1',
-  label: 'b1',
-  // Display attributes:
-  color: '#f00',
-}).addEdge({
-  id: 'e0',
-  // Reference extremities:
-  source: 'n0',
-  target: 'n1'
-}).addEdge({
-  id: 'e1',
-  // Reference extremities:
-  source: 'n1',
-  target: 'a1'
-}).addEdge({
-  id: 'e2',
-  // Reference extremities:
-  source: 'a1',
-  target: 'a2'
-}).addEdge({
-  id: 'e3',
-  // Reference extremities:
-  source: 'a1',
-  target: 'a3'
-}).addEdge({
-  id: 'e4',
-  // Reference extremities:
-  source: 'a1',
-  target: 'a4'
-}).addEdge({
-  id: 'e5',
-  // Reference extremities:
-  source: 'n1',
-  target: 'a5'
-}).addEdge({
-  id: 'eb1',
-  // Reference extremities:
-  source: 'n0',
-  target: 'b1'
-}).addEdge({
-  id: 'eb1bis',
-  // Reference extremities:
-  source: 'n0',
-  target: 'b1'
+        // define node to add
+        let node1 = null;
+        let node2 = null;
+
+        // define edge
+        let edge1 = null;
+        $.each(data, function(key, val) {
+            // give value to the node
+            node1 = { id: val.program1, value: 20, label: val.program1 };
+            node2 = { id: val.program2, value: 20, label: val.program2 };
+            // check if node1 and node2 is in the list
+            if (!nodes.some(node => node.id === val.program1)) {
+                nodes.push(node1);
+            }
+            if (!nodes.some(node => node.id === val.program2)) {
+                nodes.push(node2);
+            }
+            // give value to edge
+            if (val.compatibility != null) {
+                edge1 = { from: val.program1, to: val.program2, value: val.compatibility * 2, title: `${val.program1}---->${val.program2}` };
+                // add edge
+                edges.push(edge1)
+            }
+
+        });
+        // Instantiate our network object.
+        var container = document.getElementById("mynetwork");
+        var data = {
+            nodes: nodes,
+            edges: edges,
+        };
+        var options = {
+            nodes: {
+                shape: "dot",
+                scaling: {
+                    label: {
+                        min: 8,
+                        max: 20,
+                    },
+                },
+            },
+        };
+        network = new vis.Network(container, data, options);
+        console.log(nodes);
+        console.log(edges);
+    });
+    // create people.
+    // value corresponds with the age of the person
+    // nodes = [
+    //     { id: 'a a', value: 2, label: "Algie" },
+    //     { id: 2, value: 31, label: "Alston" },
+    //     { id: 3, value: 12, label: "Barney" },
+    //     { id: 4, value: 16, label: "Coley" },
+    //     { id: 5, value: 17, label: "Grant" },
+    //     { id: 6, value: 15, label: "Langdon" },
+    //     { id: 7, value: 6, label: "Lee" },
+    //     { id: 8, value: 5, label: "Merlin" },
+    //     { id: 9, value: 30, label: "Mick" },
+    //     { id: 10, value: 18, label: "Tod" },
+    // ];
+
+    // // create connections between people
+    // // value corresponds with the amount of contact between two people
+    // edges = [
+    //     { from: 'a a', to: 8, value: 30, title: "3 emails per week" },
+    // ];
+
+
+
+}
+
+
+window.addEventListener("load", () => {
+    draw();
 });
-
-
-// Finally, let's ask our sigma instance to refresh:
-s.refresh();
