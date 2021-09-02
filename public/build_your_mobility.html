@@ -12,7 +12,7 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
 		"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"><script>
 		<script type="text/javascript" src="js/formations.js"></script>
 		<!--TEST FOR THE RADAR CHART-->
 		<script src="js/radarChart.js"></script>
@@ -173,46 +173,11 @@
 			<div class="col-sm-6">
 				<div class="chart-wrapper">
 				<div class="chart-title">
-					Radar chart
-				</div>
-				<div class="chart-stage">
-					<select id="radar">
-						<option value="radarChart_ch"  selected="selected">Cultural heritage</option>
-						<option value="radarChart_ce">Circular economy</option>
-						<option value="radarChart_re">Renewable energy</option>
-					</select>	
-				<div id="DivContent">
-						<div  id="radarChart_ch" class="div_content" ></div>
-						<div  id="radarChart_re"  class="div_content" ></div>
-						<div  id="radarChart_ce"  class="div_content" ></div>
-						<script src="js/radar.js"></script>
-					</div>
-					
-				</div>
-				<div class="chart-notes">
-					Chart showing formation's compatibility
-				</div>
-				</div>
+					<div id="mynetwork" style='height: 56vh;'></div>
 			</div>
 
 	</div>
 	  
-			<hr>
-			<div style="text-align: center">
-                <img src="unitalogo.jpg" width="100" />
-             </div>
-            <div style="text-align:center">
-                <a href="http://univ-unita.eu/" class="small text-muted">Unita</a>
-             </div>
-		
-		  </div>
-		
-		  <script src="js/bootstrap.min.js"></script>
-		
-		  <script>
-			Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
-		  </script>
-	
-		
 	</body>
+	<script type="text/javascript" src="js/graphMobility.js"></script>
 </html>
