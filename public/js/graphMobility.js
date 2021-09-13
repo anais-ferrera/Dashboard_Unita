@@ -17,8 +17,8 @@ function draw() {
         let edge1 = null;
         $.each(data, function(key, val) {
             // give value to the node
-            node1 = { id: val.program1, value: 20, label: val.program1 };
-            node2 = { id: val.program2, value: 20, label: val.program2 };
+            node1 = { id: val.program1, value: 20, label: val.program1, color: { background: "pink", border: "purple" } };
+            node2 = { id: val.program2, value: 20, label: val.program2, color: { background: "pink", border: "purple" } };
             // check if node1 and node2 is in the list
             if (!nodes.some(node => node.id === val.program1)) {
                 nodes.push(node1);
@@ -28,7 +28,7 @@ function draw() {
             }
             // give value to edge
             if (val.compatibility != null) {
-                edge1 = { from: val.program1, to: val.program2, value: val.compatibility * 2, title: `${val.program1}---->${val.program2}`, color: "red" };
+                edge1 = { from: val.program1, to: val.program2, value: val.compatibility * 2, title: `${val.program1}---->${val.program2}` };
                 // add edge
                 edges.push(edge1)
             }

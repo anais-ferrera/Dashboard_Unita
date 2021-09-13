@@ -75,12 +75,12 @@
 					<script>	
 						d3.json("/api/data_table_courses", (data) => {
 
-							const array = []
+							const array = [];
 							var data_program1;
 							var data_program2;
 
 							for (let i =0 ; i < data.length ; i++){
-								array.push(data[i].Program + '-' + data[i].University )
+								array.push(String(data[i].Program) + '-' + String(data[i].University));
 							}
 
 							// 1: we create a dataset, it allows to filter and remove duplicates

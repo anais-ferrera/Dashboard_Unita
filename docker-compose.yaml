@@ -1,0 +1,40 @@
+version: "3"
+
+# ===== SERVICES =====
+
+services:
+
+  # ===== web app =====
+
+  app:
+    container_name: app
+    build:
+      dockerfile: Dockerfile
+    networks:
+      - network-global
+    depends_on:
+      - mongo_ingestion
+    ports:
+      - 8080:8080
+
+
+
+  # ===== mongo ingestion =====
+
+  mongo_ingestion:
+    container_name: mongo_ingestion
+    build:
+      dockerfile: data/Dockerfile
+    networks:
+      - network-global
+
+  # ===== NETWORKS =====
+networks:
+  network-global:
+    driver: bridge
+
+
+
+
+
+
