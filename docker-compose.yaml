@@ -30,11 +30,12 @@ services:
     volumes:
       - mongodbdata:/data/db
 
-  # ===== NETWORKS =====
+# ===== NETWORKS =====
 networks:
   network-global:
     driver: bridge
 
+# ===== Volumes =====
 volumes:
   mongodbdata:
     driver: local
