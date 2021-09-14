@@ -27,11 +27,17 @@ services:
       dockerfile: data/Dockerfile
     networks:
       - network-global
+    volumes:
+      - mongodbdata:/data/db
 
   # ===== NETWORKS =====
 networks:
   network-global:
     driver: bridge
+
+volumes:
+  mongodbdata:
+    driver: local
 
 
 
