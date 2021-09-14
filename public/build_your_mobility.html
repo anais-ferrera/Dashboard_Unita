@@ -8,13 +8,11 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/keen-dashboards.css">
 		<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script> 
-		<script src="https://d3js.org/topojson.v1.min.js"></script>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>  	
-			
-		
+		<script src="https://d3js.org/topojson.v1.min.js"></script>	
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
 		"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"><script>
 		<script type="text/javascript" src="js/formations.js"></script>
 		<!--TEST FOR THE RADAR CHART-->
 		<script src="js/radarChart.js"></script>
@@ -45,7 +43,8 @@
 			  <div class="navbar-collapse">
 				<ul class="navbar-nav nav main-nav">
 				  <li><a href="formations.html">Formations</a></li>
-				  <li><a href="./">Build your mobility</a></li>
+				  <li><a href="build_your_mobility.html">Build your mobility</a></li>
+				  <li><a href="correlation_for_your_mobility.html">Correlation for your mobility</a></li>
 				</ul>
 			  </div>
 			</div>
@@ -76,12 +75,12 @@
 					<script>	
 						d3.json("/api/data_table_courses", (data) => {
 
-							const array = []
+							const array = [];
 							var data_program1;
 							var data_program2;
 
 							for (let i =0 ; i < data.length ; i++){
-								array.push(data[i].Program + '-' + data[i].University )
+								array.push(String(data[i].Program) + '-' + String(data[i].University));
 							}
 
 							// 1: we create a dataset, it allows to filter and remove duplicates
@@ -174,46 +173,11 @@
 			<div class="col-sm-6">
 				<div class="chart-wrapper">
 				<div class="chart-title">
-					Radar chart
-				</div>
-				<div class="chart-stage">
-					<select id="radar">
-						<option value="radarChart_ch"  selected="selected">Cultural heritage</option>
-						<option value="radarChart_ce">Circular economy</option>
-						<option value="radarChart_re">Renewable energy</option>
-					</select>	
-				<div id="DivContent">
-						<div  id="radarChart_ch" class="div_content" ></div>
-						<div  id="radarChart_re"  class="div_content" ></div>
-						<div  id="radarChart_ce"  class="div_content" ></div>
-						<script src="js/radar.js"></script>
-					</div>
-					
-				</div>
-				<div class="chart-notes">
-					Chart showing formation's compatibility
-				</div>
-				</div>
+					<div id="mynetwork" style='height: 56vh;'></div>
 			</div>
 
 	</div>
 	  
-			<hr>
-			<div style="text-align: center">
-                <img src="unitalogo.jpg" width="100" />
-             </div>
-            <div style="text-align:center">
-                <a href="http://univ-unita.eu/" class="small text-muted">Unita</a>
-             </div>
-		
-		  </div>
-		
-		  <script src="js/bootstrap.min.js"></script>
-		
-		  <script>
-			Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
-		  </script>
-	
-		
 	</body>
+	<script type="text/javascript" src="js/graphMobility.js"></script>
 </html>
