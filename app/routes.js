@@ -121,4 +121,14 @@ module.exports = function(app) {
         res.send({ message: "the collection collection_compatibility has been deleted successfully" });
     });
 
+    app.post('/api/data_compatibility/import', (req, res) => {
+        collection_compatibility.drop();
+        const table = req.body.table;
+        table.forEach((element) => {
+            collection_compatibility.insert(element);
+        });
+        res.send({ message: "the collection collection_compatibility has been imported successfully" });
+
+    });
+
 }
