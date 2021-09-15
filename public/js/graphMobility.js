@@ -28,9 +28,12 @@ function draw() {
             }
             // give value to edge
             if (val.compatibility != null) {
-                edge1 = { from: val.program1, to: val.program2, value: val.compatibility * 2, title: `${val.program1}---->${val.program2}` };
-                // add edge
-                edges.push(edge1)
+                if (val.compatibility > 1) {
+                    console.log(val.compatibility)
+                    edge1 = { from: val.program1, to: val.program2, value: val.compatibility * 2, title: `${val.program1}---->${val.program2}` };
+                    // add edge
+                    edges.push(edge1)
+                }
             }
 
         });

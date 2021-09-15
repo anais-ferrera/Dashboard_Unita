@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir mongodbdata
 docker-compose up --build
 docker exec -it mongo_ingestion mongoimport -d database_unita -c coord_map coord_map.json
 docker exec -it mongo_ingestion mongoimport -d database_unita --jsonArray -c data_map data_map.json 
