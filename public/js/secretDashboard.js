@@ -9,6 +9,7 @@ document.querySelector("#Import-read-button").addEventListener('click', function
             type: "POST",
             url: "/api/data_compatibility/import",
             data: { "table": json },
+            success: document.location.reload()
         });
     });
     reader.readAsText(file);
@@ -40,12 +41,17 @@ function download(data, filename, type) {
 
 
 function reset() {
-    $.ajax({
-        url: '/api/data_compatibility',
-        type: 'DELETE',
-        success: function(response) {
-            console.log(response);
-            document.location.reload();
-        }
-    });
+    if ($('#resetCheck').is(":checked")) {
+        $.ajax({
+            url: '/api/data_compatibility',
+            type: 'DELETE',
+            success: function(response) {
+                console.log(response);
+                document.location.reload();
+            }
+        });
+    } else {
+        alert('check the box before confirm the button')
+    }
+
 }
