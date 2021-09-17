@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">        
+		<!-- <link rel="stylesheet" href="css/treeMap.css" /> -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/keen-dashboards.css">
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
+		"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"><script>
+		<script type="text/javascript" src="js/formations.js"></script>
+		<!--TEST FOR THE RADAR CHART-->
+	
+		<!--TEST FOR THE RADAR CHART-->
+		<title>Dashboard Unita</title>
+		<h1>Dashboard Unita</h1>
+		<p><div class="p2"></div></p>
+        
+	</head>
+	
+	<body class="application">
+
+
+		<div class="container">
+			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			  <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				  <span class="sr-only">Toggle navigation</span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="./">General informations</a>
+			  </div>
+			  <div class="navbar-collapse">
+				<ul class="navbar-nav nav main-nav">
+				  <li><a href="formations.html">Formations</a></li>
+				  <li><a href="build_your_mobility.html">Build your mobility</a></li>
+				  <li><a href="correlation_for_your_mobility.html">Correlation for your mobility</a></li>
+				</ul>
+			  </div>
+			</div>
+		</div>
+		<h2>Export file</h2>
+		<hr>
+		<button class="btn btn-success" id="Export-button" onclick="export_json()">Export file</button>
+        
+		<h2>Import file</h2>
+        <hr>
+        <input type="file" id="Import-input" />
+        <br>
+        <button class="btn btn-primary" id="Import-read-button">Import this file</button>
+		
+		<h2>Reset network</h2>
+        <hr>
+        <button class="btn btn-danger" onclick="reset()">Reset network</button>
+        <br><br>
+		
+    </body>
+<script type="text/javascript" src="js/secretDashboard.js"></script>
+
