@@ -51,7 +51,7 @@ function reset() {
             }
         });
     } else {
-        alert('check the box before confirm the button')
+        alert('Check the box before confirming the button')
     }
 
 }

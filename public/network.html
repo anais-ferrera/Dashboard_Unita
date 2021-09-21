@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">        
+		<meta charset="utf-8">
+        <link rel="stylesheet" href="css/dashboard.css" />
+        
 		<!-- <link rel="stylesheet" href="css/treeMap.css" /> -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/keen-dashboards.css">
-		
+		<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script> 
+		<script src="https://d3js.org/topojson.v1.min.js"></script>	
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
 		"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"><script>
 		<script type="text/javascript" src="js/formations.js"></script>
 		<!--TEST FOR THE RADAR CHART-->
-	
+		<script src="js/radarChart.js"></script>
+		<link rel="stylesheet" href="css/radar_chart.css">
 		<!--TEST FOR THE RADAR CHART-->
 		<title>Dashboard Unita</title>
 		<h1>Dashboard Unita</h1>
-		<p><div class="p2"></div></p>
-        
 	</head>
 	
 	<body class="application">
@@ -43,24 +45,11 @@
 				</ul>
 			  </div>
 			</div>
-		</div>
-		<h2>Export file</h2>
-		<hr>
-		<button class="btn btn-success" id="Export-button" onclick="export_json()">Export file</button>
-        
-		<h2>Import file</h2>
-        <hr>
-        <input type="file" id="Import-input" />
-        <br>
-        <button class="btn btn-primary" id="Import-read-button">Import this file</button>
-		
-		<h2>Reset network</h2>
-        <hr>
-        <button class="btn btn-danger" onclick="reset()">Reset network</button>
-		<input type="checkbox" id="resetCheck"/>
-  		<label>The deletion is irreversible  &#9940;</label>
-        <br><br>
-		
-    </body>
-<script type="text/javascript" src="js/secretDashboard.js"></script>
+		  </div>
 
+		<div class="container-fluid">
+        <div id="mynetwork" style='height: 100%;'></div>
+        <div>
+	</body>
+    <script type="text/javascript" src="js/graphMobility.js"></script>
+</html>
